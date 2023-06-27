@@ -1,43 +1,39 @@
 import Vue from 'vue';
-import './index.css'
 import { Icon } from '@iconify/vue2';
-// import indexView from "./views/IndexView.vue"
-import HomeView from "./views/HomeView.vue"
-// import Swiper from 'swiper';
-Vue.component('Icon', Icon);
-//页面打开，请求自动发送
-// 请求回来的数据还要渲染到页面上 （数据驱动视图的框架）
-// 数据驱动试图变化的条件：数据必须是响应式的数据（data） + 数据必须通过模板语法绑定到模板中
-// vue中this的指向问题：methods中所有函数(不要箭头函数)的this指向vm(vue的实例)
-const vm = new Vue({
+import App from '@/App.vue';
+import MineView from '@/views/MineView.vue'
+Vue.component('MineView',MineView)
+Vue.component('Icon', Icon);  // 第三方的全局组件
+// vm就是根实例 root 具备el
+// 但是其他实例不具备
+// 组件的嵌套 A组件出现在B组件的template中 A是B的子组件
+// 如果一个组件没有父组件，则说明它是root组件
+/* 
+组件树
+  root 
+    APP
+      IndexView
+      HomeView
+*/  
+// vm.$parent  获取父组件
+// vm.$children 获取子组件
+// vm.$root  获取根组件
+// 全局组件：注册一次(在实例化root之前) 全局使用
+new Vue({
   el: '#app',
-  data: {
-    swiper: null
+  components: { App },
+  template: '<App/>',
+  // 实例已经创建，实例上的模版还没有渲染出来
+  created() {
+    console.log(this.$parent);  // undefined  
+    console.log(this.$children);  // [App]
   },
-  render: h => h(HomeView),
+  // 当前组件的template已经渲染到页面上了
   mounted() {
-    this.initSwiper();
-  },
-  methods: {
-    initSwiper() {
-      this.swiper = new Swiper(".mySwiper", {
-        autoplay: true, // 自动播放
-        disableOnInteraction: false, // 鼠标交互后不停止自动播放
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-          renderBullet: function (index, className) {
-            return '<span class="' + className + '">'  + "</span>";
-          },
-        },
-      });
-    }
+    console.log(this.$children[0].$children); 
   }
 });
-
-// console.log(vm);
-// 以_开头的变量名属性名是私有变量或属性，不希望他人使用
-// 一般情况下：我们在实例化vue传递的配置项a ===> $a
-// el ===> $el
-// data ==> $data
-// this.msg === this.$data.msg  对象属性代理
+// 组件分类：
+// 从功能上分：页面组件、业务组件
+// 从来源上分：内置组件、第三方组件、自定义组件
+// 从作用范围分：局部组件(引入文件、注册组件、使用标签)、全局组件(使用vue.component来定义)
