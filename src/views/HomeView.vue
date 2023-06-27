@@ -28,7 +28,7 @@
             </ul>
         </main>
         <!-- 推荐歌单 -->
-        <main class="mt-[4.722vw]">
+        <main class="mt-[4.722vw] border-solid border-t border-b border-slate-[ebedf2] pt-[5.463vw] pb-[6.296vw] box-border">
             <p class="ml-[4.5vw] mb-[4vw]">
                 <span class="font-bold text-[18px]">推荐歌单</span>
                 <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
@@ -39,6 +39,62 @@
                     <li class="scroll-item mr-[2.5vw] w-[32.13vw]" v-for="item in songSheet" :key="item.id">
                         <img :src="item.picUrl" alt="" class="w-[30vw] h-[30vw] rounded-2xl mb-[1.3vw]">
                         <span class="text-[0.5rem]">{{item.name}}</span>
+                    </li>
+                </ul>
+            </div>
+        </main>
+        <!-- 新歌新碟 -->
+        <main class="mt-[4.722vw] border-solid border-b border-slate-[ebedf2] pb-[6.296vw] box-border">
+            <p class="ml-[4.5vw] mb-[6vw]">
+                <span class="font-bold text-[18px]">新歌新碟\数字专辑</span>
+                <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
+                <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
+            </p>
+            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden"  ref="song">
+                <ul class="flex justify-between scroll-content w-[200vw]">
+                    <li class="scroll-item w-[88.819vw]" v-for="item in newSong" :key="item.id">
+                        <div v-for="key in item.resources" :key="key.id" class="flex mb-[2.8vw]">
+                            <div>
+                                <img :src="key.uiElement.image.imageUrl" alt="" class="w-[18vw] h-[18vw] rounded-lg mr-5">
+                            </div>
+                            <div class="flex flex-col justify-around">
+                                <p class="w-[65vw] font-bold">{{key.uiElement.mainTitle.title}}</p>
+                                <p class="text-[12px]" style="color:#7a8490">{{key.uiElement.subTitle.title}}</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </main>
+        <!-- 排行榜 -->
+        <main class="mt-[4.722vw] border-solid border-b border-slate-[ebedf2] pb-[6.296vw] box-border">
+            <p class="ml-[4.5vw] mb-[6vw]">
+                <span class="font-bold text-[18px]">排行榜</span>
+                <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
+                <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
+            </p>
+            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper"  ref="charts">
+                <ul class="flex justify-between scroll-content w-[555vw]">
+                    <li class="scroll-item w-[90vw] h-[53.4vw] mr-5 bg-stone-50 rounded-2xl shadow-lg p-[3.5vw] box-border" v-for="item in charts" :key="item.id">
+                        <div>
+                            <span class="text-[18px] font-bold">{{item.uiElement.mainTitle?.title}}</span>
+                            <Icon icon="ep:arrow-left-bold" color="#333" width="10" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
+                            <span class="float-right text-[14px]">{{item.uiElement.mainTitle?.titleDesc}}</span>
+                        </div>
+                        <div v-for="(key,index) in item.resources" :key="key.id" class="flex justify-between mt-[2.8vw]">
+                            <div class="flex justify-between w-[81vw]">
+                                <div>
+                                    <img :src="key.uiElement.image.imageUrl" alt="" class="w-[10vw] h-[10vw] rounded-lg mr-5">
+                                </div>
+                                <div>{{index + 1}}</div>
+                                <div class="flex flex-col justify-around">
+                                    <p class="w-[51.875vw] font-bold text-ellipsis">{{key.uiElement.mainTitle.title}}</p>
+                                    <p class="text-[12px]" style="color:#7a8490">{{key.resourceExtInfo?.artists[0].name}}</p>
+                                </div>
+                                <div>{{key.uiElement.labelText.text}}</div>
+                            </div>
+                            
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -59,6 +115,8 @@ export default {
     mounted() {
         this.init(this.$refs.scroll);
         this.init(this.$refs.sc);
+        this.init(this.$refs.song);
+        this.init(this.$refs.charts);
     },
     beforeDestroy() {
         this.bs.destroy()
@@ -72,28 +130,34 @@ export default {
       }
     },
     created() {
-        // 轮播图
+        // 轮播图/新歌新碟/排行榜
         axios.get('https://netease-cloud-music-c2c1ys55f-cc-0820.vercel.app/homepage/block/page').then(res => {
-            console.log(res);
+            // console.log(res);
             this.banner = res.data.data.blocks[0].extInfo.banners
+            this.newSong = res.data.data.blocks[5].creatives
+            this.charts = res.data.data.blocks[3].creatives
         })
         // 每日推荐
         axios.get('https://netease-cloud-music-c2c1ys55f-cc-0820.vercel.app/homepage/dragon/ball').then(res => {
             // console.log(res);
             this.commend = res.data.data
-            console.log(this.commend);
+            // console.log(this.commend);
         })
         // 推荐歌单
         axios.get('https://netease-cloud-music-c2c1ys55f-cc-0820.vercel.app/personalized?limit=6').then(res => {
             this.songSheet = res.data.result
-            console.log(this.songSheet);
+            // console.log(this.songSheet);
+        })
+        // 排行榜     
+        axios.get('https://netease-cloud-music-c2c1ys55f-cc-0820.vercel.app/toplist/detail').then(res => {
+            
         })
     }
 }
 </script>
 <style>
     body {
-        background-color: rgb(237, 241, 245);
+        background-color: #f7fafc;
     }
 
     input {
@@ -122,6 +186,14 @@ export default {
 
     .red-image {
         filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='colorize'><feColorMatrix type='matrix' values='1 0 0 0 0.698 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/></filter></svg>#colorize");
+    }
+
+    .text-ellipsis {
+        display: inline-block;
+        width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     
 </style>
