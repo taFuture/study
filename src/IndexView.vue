@@ -25,9 +25,9 @@ import axios from 'axios';
 export default {
     data() {
         return {
-        menu: [],
-        playlists: [],
-        activeMenuItem: '',
+            menu: [],
+            playlists: [],
+            activeMenuItem: '',
         }
     },
     methods: {
@@ -56,7 +56,6 @@ export default {
         .catch(err => {console.log(err)})
     }
 }
-    
 </script>
 <style>
     .active {
