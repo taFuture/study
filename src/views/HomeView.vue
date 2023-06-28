@@ -35,7 +35,7 @@
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
             <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden"  ref="sc">
-                <ul class="flex justify-between scroll-content w-[200vw]">
+                <ul class="flex scroll-content w-[1000vw]">
                     <li class="scroll-item mr-[2.5vw] w-[32.13vw]" v-for="item in songSheet" :key="item.id">
                         <img :src="item.picUrl" alt="" class="w-[30vw] h-[30vw] rounded-2xl mb-[1.3vw]">
                         <span class="text-[0.5rem]">{{item.name}}</span>
@@ -50,8 +50,8 @@
                 <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
-            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden"  ref="song">
-                <ul class="flex justify-between scroll-content w-[200vw]">
+            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper"  ref="song">
+                <ul class="flex justify-between scroll-content w-[714vw]">
                     <li class="scroll-item w-[88.819vw]" v-for="item in newSong" :key="item.id">
                         <div v-for="key in item.resources" :key="key.id" class="flex mb-[2.8vw]">
                             <div>
@@ -74,24 +74,24 @@
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
             <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper"  ref="charts">
-                <ul class="flex justify-between scroll-content w-[555vw]">
-                    <li class="scroll-item w-[90vw] h-[53.4vw] mr-5 bg-stone-50 rounded-2xl shadow-lg p-[3.5vw] box-border" v-for="item in charts" :key="item.id">
+                <ul class="flex scroll-content w-[575vw]">
+                    <li class="scroll-item w-[91vw] h-[54.4vw] mr-3 bg-stone-50 rounded-2xl shadow-lg p-[3.5vw] box-border" v-for="item in charts" :key="item.id">
                         <div>
                             <span class="text-[18px] font-bold">{{item.uiElement.mainTitle?.title}}</span>
                             <Icon icon="ep:arrow-left-bold" color="#333" width="10" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
-                            <span class="float-right text-[14px]">{{item.uiElement.mainTitle?.titleDesc}}</span>
+                            <span class="float-right text-[12px] leading-[8vw]">{{item.uiElement.mainTitle?.titleDesc}}</span>
                         </div>
                         <div v-for="(key,index) in item.resources" :key="key.id" class="flex justify-between mt-[2.8vw]">
-                            <div class="flex justify-between w-[81vw]">
+                            <div class="flex w-[81vw]">
                                 <div>
                                     <img :src="key.uiElement.image.imageUrl" alt="" class="w-[10vw] h-[10vw] rounded-lg mr-5">
                                 </div>
-                                <div>{{index + 1}}</div>
-                                <div class="flex flex-col justify-around">
+                                <div class="mr-[4vw] leading-[11vw] font-bold" :style="{ 'color': getNodeColor(index) }">{{index + 1}}</div>
+                                <div class="flex flex-col justify-around mr-[1vw] w-[51.875vw]">
                                     <p class="w-[51.875vw] font-bold text-ellipsis">{{key.uiElement.mainTitle.title}}</p>
                                     <p class="text-[12px]" style="color:#7a8490">{{key.resourceExtInfo?.artists[0].name}}</p>
                                 </div>
-                                <div>{{key.uiElement.labelText.text}}</div>
+                                <div class="text-[12px] leading-[11vw]" :style="{ 'color': getThemeColor(key.uiElement.labelText.text)}">{{key.uiElement.labelText.text}}</div>
                             </div>
                             
                         </div>
@@ -110,6 +110,8 @@ export default {
             menu: [],
             banner: [],
             activeMenuItem: '',
+            nodeValue:[0,1,2],
+            theme:['新晋']
         }
     },
     mounted() {
@@ -123,11 +125,27 @@ export default {
     },
     methods: {
         init(name) {
-        this.bs = new BScroll(name, {
-          scrollX: true,
-          probeType: 3 // listening scroll event
-        })
-      }
+            this.bs = new BScroll(name, {
+            scrollX: true,
+            probeType: 3 // listening scroll event
+            })
+        },
+        getNodeColor(index) {
+            if(index === 0) {
+                return "#c49125"
+            }else if(index === 1) {
+                return "#7eb2ab"
+            }else {
+                return "c67b4f"
+            }
+        },
+        getThemeColor(name) {
+            if(name === '新晋') {
+                return "#2eb784"
+            }else {
+                return "fbf2f2"
+            }
+        }   
     },
     created() {
         // 轮播图/新歌新碟/排行榜
@@ -157,7 +175,9 @@ export default {
 </script>
 <style>
     body {
-        background-color: #f7fafc;
+        background: rgb(238,174,202);
+        background: linear-gradient(90deg, rgba(238,174,202,0.7791491596638656) 29%, rgba(148,187,233,0.7987570028011204) 93%);
+        /* background-color: #f7fafc; */
     }
 
     input {
@@ -190,7 +210,6 @@ export default {
 
     .text-ellipsis {
         display: inline-block;
-        width: 100px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
