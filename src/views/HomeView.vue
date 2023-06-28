@@ -1,7 +1,7 @@
 <template>
-    <section class="w-sreen h-screen mt-6 ">
+    <section class="mt-6">
         <!-- 头部 -->
-        <header class="flex justify-around w-[100%]">
+        <header class="flex justify-around w-[100%] border-solid border-b border-slate-[ebedf2] pb-[7vw]">
             <Icon icon="ph:list" color="#323" width="30" class=""/>
             <form action="" class="relative">
                 <input type="text" name="" id="" :placeholder="defaultSearch.showKeyword" class="outline-none w-[73vw] rounded-2xl pl-[7vw] box-border" v-model="userSearchkeywords">
@@ -23,8 +23,8 @@
             <div class="swiper-pagination"></div>
         </div>
         <!-- 每日推荐 -->
-        <main class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden "  ref="scroll">
-            <ul class="flex justify-between scroll-content w-[193vw]">
+        <main class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden"  ref="scroll">
+            <ul class="flex justify-between scroll-content w-[193vw] ">
                 <li class="text-center scroll-item" v-for="item in commend" :key="item.id">
                     <img :src="item.iconUrl" alt="" class="w-[15vw] h-[15vw] red-image">
                     <span>{{item.name}}</span>
@@ -39,7 +39,7 @@
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
             <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden"  ref="sc">
-                <ul class="flex scroll-content w-[1000vw]">
+                <ul class="flex scroll-content w-[200vw]">
                     <li class="scroll-item mr-[2.5vw] w-[32.13vw]" v-for="item in songSheet" :key="item.id">
                         <img :src="item.picUrl" alt="" class="w-[30vw] h-[30vw] rounded-2xl mb-[1.3vw]">
                         <span class="text-[0.5rem]">{{item.name}}</span>
@@ -54,7 +54,7 @@
                 <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
-            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper"  ref="song">
+            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden"  ref="song">
                 <ul class="flex justify-between scroll-content w-[714vw]">
                     <li class="scroll-item w-[88.819vw]" v-for="item in newSong" :key="item.id">
                         <div v-for="key in item.resources" :key="key.id" class="flex mb-[2.8vw]">
@@ -77,9 +77,9 @@
                 <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
-            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper"  ref="charts">
-                <ul class="flex scroll-content w-[575vw]">
-                    <li class="scroll-item w-[91vw] h-[54.4vw] mr-3 bg-stone-50 rounded-2xl shadow-lg p-[3.5vw] box-border" v-for="item in charts" :key="item.id">
+            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden"  ref="charts">
+                <ul class="flex scroll-content w-[560vw]">
+                    <li class="scroll-item w-[91vw] h-[54.4vw] mr-3 bg-#fff bg-opacity-[0.8] rounded-2xl shadow-lg p-[3.5vw] box-border" v-for="item in charts" :key="item.id">
                         <div>
                             <span class="text-[18px] font-bold">{{item.uiElement.mainTitle?.title}}</span>
                             <Icon icon="ep:arrow-left-bold" color="#333" width="10" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
@@ -104,11 +104,36 @@
                 </ul>
             </div>
         </main>
+        <!-- 热门话题 -->
+        <main class="mt-[4.722vw] border-solid border-b border-slate-[ebedf2] pb-[6.296vw] box-border">
+            <p class="ml-[4.5vw] mb-[6vw] overflow-hidden">
+                <span class="font-bold text-[18px]">热门话题</span>
+                <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
+            </p>
+            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper w-[91vw] h-[35vw] hot p-[3.6vw] box-border rounded-2xl">
+                <div>
+                    <p class="flex items-center w-[47vw] mb-[1.3vw]">
+                        <Icon icon="solar:chat-round-like-linear" width="20" color="white" />
+                        <span class="text-[#fff] text-[18px] ml-[1.3vw]">最令你感动的那首歌</span>
+                    </p>
+                    <p class="text-[#c9c9c9] text-[12px]">484万热度</p>
+                </div>
+                <div class="flex justify-between w-[100%] mt-[5vw]">
+                    <div>
+                        <p class="text-[#ececec]">Saint_Denis:今日份的感动</p>
+                        <p class="text-[#ececec]">"我希望我们能永远真诚且热烈"</p>
+                    </div>
+                    <div>
+                        <img src="http://p1.music.126.net/JtMBJSd2ZFtarcVTAYjUFQ==/109951165550061432.jpg" alt="" class="w-[14vw] h-[14vw] rounded-xl">
+                    </div>
+                </div>
+            </div>
+        </main>
         <!-- 音乐日历 -->
         <main class="mt-[4.722vw] border-solid border-b border-slate-[ebedf2] pb-[6.296vw] box-border">
             <p class="ml-[4.5vw] mb-[6vw] overflow-hidden">
                 <span class="font-bold text-[18px]">音乐日历</span>
-                <span class="inline-block w-[13vw] h-[5.8vw] bg-[#ebedf2] rounded-2xl text-center leading-[6vw] text-[12px]">
+                <span class="inline-block w-[10vw] h-[5vw] bg-[#ebedf2] rounded-2xl text-center leading-[5.5vw] text-[12px]">
                     更多
                     <Icon icon="ep:arrow-left-bold" color="#333" width="10" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
                 </span>
@@ -116,14 +141,14 @@
             </p>
             <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper">
                 <ul class="flex scroll-content w-[575vw]">
-                    <li class="scroll-item w-[91vw] h-[54.4vw] mr-3 bg-stone-50 rounded-2xl shadow-lg p-[3.5vw] box-border">
+                    <li class="flex flex-col justify-between scroll-item w-[91vw] h-[48vw] mr-3 bg-#fff bg-opacity-[0.8] rounded-2xl shadow-lg p-[2.8vw] box-border">
                         <div v-for="item in date" :key="item.id" class="flex justify-between mt-[2.8vw]">
-                            <div class="flex items-center justify-center">
-                                <p></p>
-                                <p>{{ item.title }}</p>
+                            <div class="flex flex-col justify-center w-[65vw] h-[15.7vw]">
+                                <p class="text-[#abaeab] text[14px]">今天 {{Cover(new Date().getMonth() + 1)}}/{{new Date().getDate()}}</p>
+                                <p class="mt-[1vw] font-bold">{{ item.title }}</p>
                             </div>
                             <div>
-                                <img :src="item.imgUrl" alt="" class="w-[10vw] h-[10vw] rounded-lg mr-5">
+                                <img :src="item.imgUrl" alt="" class="w-[16vw] h-[16vw] rounded-lg">
                             </div>
                         </div>
                     </li>
@@ -187,6 +212,13 @@ export default {
                 return "#2eb784"
             }
         },
+        Cover(num) {
+            if (num < 10) {
+                return "0" + num;
+            } else {
+                return num.toString();
+            }
+        },
         async searchHandler(keywords) {
             const res = await fetchSearchResult({keywords:this.userSearchKeywords || this.defaultSearch.realkeyword})
             console.log(res);
@@ -212,8 +244,9 @@ export default {
             // console.log(this.songSheet);
         })
         // 音乐日历
-        axios.get('https://neteasecloudmusicapi.vercel.app/#/?id=neteasecloudmusicapi').then(res => {
-            this.date = res.data.data.calendarEvents.slice(0,2);
+        axios.get('https://netease-cloud-music-c2c1ys55f-cc-0820.vercel.app/calendar?startTime=1606752000000&endTime=1609430399999').then(res => {
+            this.date = res.data.data.calendarEvents.slice(8,10);
+            console.log(this.date);
         })
         const res = await fetchSearchDefault();
         this.defaultSearch = res.data.data
@@ -244,10 +277,6 @@ export default {
         padding-left: 20px;
     }
 
-    input::placeholder {
-        text-align: center;
-    }
-
     .swiper-pagination-bullet {
         background-color: #fff;
     }
@@ -274,5 +303,19 @@ export default {
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    
+
+    .line {
+        border: 1px solid #ebedf2;
+        padding-top: 3vw;
+        box-sizing: border-box;
+    }
+
+    .hot {
+        background: rgb(129,172,222);
+        background: linear-gradient(90deg, rgba(129,172,222,0.7987570028011204) 7%, rgba(237,168,197,0.7791491596638656) 85%);
+    }
+
+    main {
+        overflow: hidden;
+    }
 </style>
