@@ -34,7 +34,7 @@
         <!-- 推荐歌单 -->
         <main class="mt-[4.722vw] border-solid border-t border-b border-slate-[ebedf2] pt-[5.463vw] pb-[6.296vw] box-border">
             <p class="ml-[4.5vw] mb-[4vw]">
-                <span class="font-bold text-[18px]">推荐歌单</span>
+                <span class="font-bold">推荐歌单</span>
                 <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
@@ -50,7 +50,7 @@
         <!-- 新歌新碟 -->
         <main class="mt-[4.722vw] border-solid border-b border-slate-[ebedf2] pb-[6.296vw] box-border">
             <p class="ml-[4.5vw] mb-[6vw]">
-                <span class="font-bold text-[18px]">新歌新碟\数字专辑</span>
+                <span class="font-bold ">新歌新碟\数字专辑</span>
                 <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
@@ -63,7 +63,7 @@
                             </div>
                             <div class="flex flex-col justify-around">
                                 <p class="w-[65vw] font-bold">{{key.uiElement.mainTitle.title}}</p>
-                                <p class="text-[12px]" style="color:#7a8490">{{key.uiElement.subTitle.title}}</p>
+                                <p class="" style="color:#7a8490">{{key.uiElement.subTitle.title}}</p>
                             </div>
                         </div>
                     </li>
@@ -73,7 +73,7 @@
         <!-- 排行榜 -->
         <main class="mt-[4.722vw] border-solid border-b border-slate-[ebedf2] pb-[6.296vw] box-border">
             <p class="ml-[4.5vw] mb-[6vw]">
-                <span class="font-bold text-[18px]">排行榜</span>
+                <span class="font-bold ">排行榜</span>
                 <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
@@ -81,9 +81,9 @@
                 <ul class="flex scroll-content w-[560vw]">
                     <li class="scroll-item w-[91vw] h-[54.4vw] mr-3 bg-#fff bg-opacity-[0.8] rounded-2xl shadow-lg p-[3.5vw] box-border" v-for="item in charts" :key="item.id">
                         <div>
-                            <span class="text-[18px] font-bold">{{item.uiElement.mainTitle?.title}}</span>
+                            <span class=" font-bold">{{item.uiElement.mainTitle?.title}}</span>
                             <Icon icon="ep:arrow-left-bold" color="#333" width="10" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
-                            <span class="float-right text-[12px] leading-[8vw]">{{item.uiElement.mainTitle?.titleDesc}}</span>
+                            <span class="float-right  leading-[8vw]">{{item.uiElement.mainTitle?.titleDesc}}</span>
                         </div>
                         <div v-for="(key,index) in item.resources" :key="key.id" class="flex justify-between mt-[2.8vw]">
                             <div class="flex w-[81vw]">
@@ -91,12 +91,12 @@
                                     <img :src="key.uiElement.image.imageUrl" alt="" class="w-[10vw] h-[10vw] rounded-lg mr-5">
                                 </div>
                                 <div class="mr-[4vw] leading-[11vw] font-bold" :style="{ 'color': getNodeColor(index) }">{{index + 1}}</div>
-                                <div class="flex flex-col justify-around mr-[5vw] w-[51.875vw]">
-                                    <p class="w-[51.875vw] font-bold text-ellipsis">{{key.uiElement.mainTitle.title}}</p>
-                                    <p class="text-[12px]" style="color:#7a8490">{{key.resourceExtInfo?.artists[0].name}}</p>
+                                <div class="flex flex-col justify-around mr-[5vw]">
+                                    <p class="w-[47vw] font-bold text-ellipsis">{{key.uiElement.mainTitle.title}}</p>
+                                    <p class="" style="color:#7a8490">{{key.resourceExtInfo?.artists[0].name}}</p>
                                 </div>
                                 <div class="flex items-center justify-center">
-                                    <div class="text-[12px] text-center w-[5vw]" :style="{ 'color': getThemeColor(key.uiElement.labelText.text)}">{{key.uiElement.labelText.text}}</div>
+                                    <div class=" text-center w-[8vw]" :style="{ 'color': getThemeColor(key.uiElement.labelText.text)}">{{key.uiElement.labelText.text}}</div>
                                 </div>
                             </div>
                         </div>
@@ -107,16 +107,16 @@
         <!-- 热门话题 -->
         <main class="mt-[4.722vw] border-solid border-b border-slate-[ebedf2] pb-[6.296vw] box-border">
             <p class="ml-[4.5vw] mb-[6vw] overflow-hidden">
-                <span class="font-bold text-[18px]">热门话题</span>
+                <span class="font-bold ">热门话题</span>
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
-            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper w-[91vw] h-[35vw] hot p-[3.6vw] box-border rounded-2xl">
+            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper w-[91vw] h-[38vw] hot p-[3.6vw] box-border rounded-2xl">
                 <div>
                     <p class="flex items-center w-[47vw] mb-[1.3vw]">
                         <Icon icon="solar:chat-round-like-linear" width="20" color="white" />
-                        <span class="text-[#fff] text-[18px] ml-[1.3vw]">最令你感动的那首歌</span>
+                        <span class="text-[#fff]  ml-[1.3vw]">最令你感动的那首歌</span>
                     </p>
-                    <p class="text-[#c9c9c9] text-[12px]">484万热度</p>
+                    <p class="text-[#c9c9c9] ">484万热度</p>
                 </div>
                 <div class="flex justify-between w-[100%] mt-[5vw]">
                     <div>
@@ -131,20 +131,22 @@
         </main>
         <!-- 音乐日历 -->
         <main class="mt-[4.722vw] border-solid border-b border-slate-[ebedf2] pb-[6.296vw] box-border">
-            <p class="ml-[4.5vw] mb-[6vw] overflow-hidden">
-                <span class="font-bold text-[18px]">音乐日历</span>
-                <span class="inline-block w-[10vw] h-[5vw] bg-[#ebedf2] rounded-2xl text-center leading-[5.5vw] text-[12px]">
-                    更多
-                    <Icon icon="ep:arrow-left-bold" color="#333" width="10" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
-                </span>
-                <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
-            </p>
+            <div class="ml-[4.5vw] mb-[6vw] overflow-hidden">
+                <div class="flex ">
+                    <span class="font-bold mr-2">音乐日历</span>
+                    <p class="w-[13vw] h-[5vw] bg-[#ebedf2] rounded-2xl text-center">
+                        更多
+                        <Icon icon="ep:arrow-left-bold" color="#333" width="10" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
+                    </p>
+                </div>
+                <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right mt-[-6vw]"/>
+            </div>
             <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper">
                 <ul class="flex scroll-content w-[575vw]">
                     <li class="flex flex-col justify-between scroll-item w-[91vw] h-[48vw] mr-3 bg-#fff bg-opacity-[0.8] rounded-2xl shadow-lg p-[2.8vw] box-border">
                         <div v-for="item in date" :key="item.id" class="flex justify-between mt-[2.8vw]">
                             <div class="flex flex-col justify-center w-[65vw] h-[15.7vw]">
-                                <p class="text-[#abaeab] text[14px]">今天 {{Cover(new Date().getMonth() + 1)}}/{{new Date().getDate()}}</p>
+                                <p class="text-[#abaeab] ">今天 {{Cover(new Date().getMonth() + 1)}}/{{new Date().getDate()}}</p>
                                 <p class="mt-[1vw] font-bold">{{ item.title }}</p>
                             </div>
                             <div>
@@ -270,7 +272,7 @@ export default {
     body {
         background: rgb(238,174,202);
         background: linear-gradient(90deg, rgba(238,174,202,0.7791491596638656) 29%, rgba(148,187,233,0.7987570028011204) 93%);
-        /* background-color: #f7fafc; */
+        font-size: 1vw; 
     }
 
     input {
