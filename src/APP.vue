@@ -8,16 +8,18 @@
     <IndexView v-if="visibleView === 'IndexView'"/>
     <HomeView v-else-if="visibleView === 'HomeView'"/>
     <MineView v-else-if="visibleView === 'MineView'"/>
+    
   </div>
 </template>
 <script>
 import IndexView from '@/views/IndexView.vue';
-import HomeView from '@/views/HomeView.vue';
+import HomeView from '@/views/HomeView/HomeView.vue';
 export default {
-    components: { IndexView, HomeView },
+    components: { RecommondPlaylistItem },
     data() {
         return {
             visibleView: 'IndexView',
+            recommentPlaylist:[],
         };
     },
     beforeCreate() {
@@ -25,8 +27,8 @@ export default {
             this.visibleView = location.hash.replace("#","");
         }
     },
-    created() {
-        window.vm = this;
+    async created() {
+        // this.recommentPlaylist = 
     },
 };
 </script>

@@ -2,13 +2,16 @@
     <div>
         <h1 class="active">HomeView</h1>
         <MineView />
+        <RecommondPlaylistItem v-for="playlist in recommentPlaylist" :key="playlist.id" :source="playlist" />
     </div>
 </template>
 <script>
-import MineView from './MineView.vue';
+import MineView from '../MineView.vue';
 // el配置项只存在根实例中
 export default {
-  components: { MineView },};
+  components: { RecommondPlaylistItem },
+
+};
 </script>
 <style scoped>
 .active {
