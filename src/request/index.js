@@ -5,3 +5,15 @@ const http = axios.create({
 })
 export const fetchPlaylist = (cat) => http.get('top/playlist',{params:{cat}});
 export const fetchPlaylistHot = () => http.get('/playlist/hot');
+// 获取搜索关键字
+/**
+ * @description 关键字
+ * @param {Array} 无
+ * @returns {Promise}
+ */
+export const fetchSearchDefault = () => http.get('/search/default');
+
+export const fetchSearchResult = (params) => http.get('/search',{params})
+
+// 搜索建议
+export const fetchSeachSuggest = (keywords) => http.get('/search/suggest',{params:{keywords}})
