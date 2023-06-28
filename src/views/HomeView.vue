@@ -4,8 +4,12 @@
         <header class="flex justify-around w-[100%]">
             <Icon icon="ph:list" color="#323" width="30" class=""/>
             <form action="" class="relative">
-                <input type="text" name="" id="" placeholder="冷屁股" class="outline-none w-[73vw] rounded-2xl pl-4">
-                <Icon icon="iconamoon:search-light" color="#ccc" width="20" class="absolute left-[26vw] top-[1vw] text-center"/>
+                <input type="text" name="" id="" :placeholder="defaultSearch.showKeyword" class="outline-none w-[73vw] rounded-2xl pl-[7vw] box-border" v-model="userSearchkeywords">
+                <Icon icon="iconamoon:search-light" color="#ccc" width="20" class="absolute left-[1vw] top-[0.5vw] text-center" @click.native="searchHandler(userSearchkeywords)"/>
+                <Icon icon="tabler:scan" color="#ccc" width="20" class="absolute right-[2vw] top-[0.5vw] text-center" />
+                <ul v-if="SeachSuggestList" class="absolute top-[7vw] bg-[#fff] bg-opacity-[0.8] z-50 w-[73vw] rounded-2xl ">
+                    <li v-for="item in SeachSuggestList" :key="item.id" @click="searchHandler(item.name)" class="pl-[7vw] box-border my-[3vw]">{{item.name}}</li>
+                </ul>
             </form>
             <Icon icon="iconamoon:microphone-thin" color="#323" width="30" />
         </header>
@@ -87,13 +91,40 @@
                                     <img :src="key.uiElement.image.imageUrl" alt="" class="w-[10vw] h-[10vw] rounded-lg mr-5">
                                 </div>
                                 <div class="mr-[4vw] leading-[11vw] font-bold" :style="{ 'color': getNodeColor(index) }">{{index + 1}}</div>
-                                <div class="flex flex-col justify-around mr-[1vw] w-[51.875vw]">
+                                <div class="flex flex-col justify-around mr-[5vw] w-[51.875vw]">
                                     <p class="w-[51.875vw] font-bold text-ellipsis">{{key.uiElement.mainTitle.title}}</p>
                                     <p class="text-[12px]" style="color:#7a8490">{{key.resourceExtInfo?.artists[0].name}}</p>
                                 </div>
-                                <div class="text-[12px] leading-[11vw]" :style="{ 'color': getThemeColor(key.uiElement.labelText.text)}">{{key.uiElement.labelText.text}}</div>
+                                <div class="flex items-center justify-center">
+                                    <div class="text-[12px] text-center w-[5vw]" :style="{ 'color': getThemeColor(key.uiElement.labelText.text)}">{{key.uiElement.labelText.text}}</div>
+                                </div>
                             </div>
-                            
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </main>
+        <!-- 音乐日历 -->
+        <main class="mt-[4.722vw] border-solid border-b border-slate-[ebedf2] pb-[6.296vw] box-border">
+            <p class="ml-[4.5vw] mb-[6vw] overflow-hidden">
+                <span class="font-bold text-[18px]">音乐日历</span>
+                <span class="inline-block w-[13vw] h-[5.8vw] bg-[#ebedf2] rounded-2xl text-center leading-[6vw] text-[12px]">
+                    更多
+                    <Icon icon="ep:arrow-left-bold" color="#333" width="10" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
+                </span>
+                <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
+            </p>
+            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper"  ref="charts">
+                <ul class="flex scroll-content w-[575vw]">
+                    <li class="scroll-item w-[91vw] h-[54.4vw] mr-3 bg-stone-50 rounded-2xl shadow-lg p-[3.5vw] box-border" v-for="item in charts" :key="item.id">
+                        <div v-for="(key) in item.resources" :key="key.id" class="flex justify-between mt-[2.8vw]">
+                            <div class="flex items-center justify-center">
+                                <p></p>
+                                <p></p>
+                            </div>
+                            <div>
+                                <img :src="key.uiElement.image.imageUrl" alt="" class="w-[10vw] h-[10vw] rounded-lg mr-5">
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -103,7 +134,9 @@
 </template>
 <script>
 import axios from 'axios';
-import BScroll from '@better-scroll/core'
+import _ from 'lodash';
+import BScroll from '@better-scroll/core';
+import {fetchPlaylist,fetchPlaylistHot,fetchSearchDefault,fetchSearchResult,fetchSeachSuggest} from '@/request';
 export default {
     data() {
         return {
@@ -111,9 +144,17 @@ export default {
             banner: [],
             activeMenuItem: '',
             nodeValue:[0,1,2],
-            theme:['新晋']
+            theme:'新晋',
+            defaultSearch:{},
+            userSearchkeywords:'',
+            SeachSuggestList:[]
         }
     },
+    // async created() {
+    //     const res = await fetchSearchDefault();
+    //     this.defaultSearch = res.data.data
+    //     console.log(this.defaultSearch);
+    // },
     mounted() {
         this.init(this.$refs.scroll);
         this.init(this.$refs.sc);
@@ -140,14 +181,18 @@ export default {
             }
         },
         getThemeColor(name) {
-            if(name === '新晋') {
-                return "#2eb784"
+            if(name !== '新晋') {
+                return "red" 
             }else {
-                return "fbf2f2"
+                return "#2eb784"
             }
-        }   
+        },
+        async searchHandler(keywords) {
+            const res = await fetchSearchResult({keywords:this.userSearchKeywords || this.defaultSearch.realkeyword})
+            console.log(res);
+        }
     },
-    created() {
+    async created() {
         // 轮播图/新歌新碟/排行榜
         axios.get('https://netease-cloud-music-c2c1ys55f-cc-0820.vercel.app/homepage/block/page').then(res => {
             // console.log(res);
@@ -166,10 +211,25 @@ export default {
             this.songSheet = res.data.result
             // console.log(this.songSheet);
         })
-        // 排行榜     
-        axios.get('https://netease-cloud-music-c2c1ys55f-cc-0820.vercel.app/toplist/detail').then(res => {
-            
+        // 音乐日历
+        axios.get('https://neteasecloudmusicapi.vercel.app/#/?id=neteasecloudmusicapi').then(res => {
+            this.date = res
         })
+        const res = await fetchSearchDefault();
+        this.defaultSearch = res.data.data
+        console.log(this.defaultSearch);
+    },
+    watch: {
+        // async userSearchkeywords(keywords) {
+        //     const res = await fetchSeachSuggest(keywords);
+        //     console.log(res);
+        //     this.SeachSuggestList = res.data.result.songs
+        // }
+        userSearchkeywords:_.debounce(async function(keywords) {
+            const res = await fetchSeachSuggest(keywords);
+            console.log(res);
+            this.SeachSuggestList = res.data.result.songs
+        },300) 
     }
 }
 </script>
