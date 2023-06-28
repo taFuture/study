@@ -114,16 +114,16 @@
                 </span>
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
-            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper"  ref="charts">
+            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper">
                 <ul class="flex scroll-content w-[575vw]">
-                    <li class="scroll-item w-[91vw] h-[54.4vw] mr-3 bg-stone-50 rounded-2xl shadow-lg p-[3.5vw] box-border" v-for="item in charts" :key="item.id">
-                        <div v-for="(key) in item.resources" :key="key.id" class="flex justify-between mt-[2.8vw]">
+                    <li class="scroll-item w-[91vw] h-[54.4vw] mr-3 bg-stone-50 rounded-2xl shadow-lg p-[3.5vw] box-border">
+                        <div v-for="item in date" :key="item.id" class="flex justify-between mt-[2.8vw]">
                             <div class="flex items-center justify-center">
                                 <p></p>
-                                <p></p>
+                                <p>{{ item.title }}</p>
                             </div>
                             <div>
-                                <img :src="key.uiElement.image.imageUrl" alt="" class="w-[10vw] h-[10vw] rounded-lg mr-5">
+                                <img :src="item.imgUrl" alt="" class="w-[10vw] h-[10vw] rounded-lg mr-5">
                             </div>
                         </div>
                     </li>
@@ -136,7 +136,7 @@
 import axios from 'axios';
 import _ from 'lodash';
 import BScroll from '@better-scroll/core';
-import {fetchPlaylist,fetchPlaylistHot,fetchSearchDefault,fetchSearchResult,fetchSeachSuggest} from '@/request';
+import {fetchSearchDefault,fetchSearchResult,fetchSeachSuggest} from '@/request';
 export default {
     data() {
         return {
@@ -213,7 +213,7 @@ export default {
         })
         // 音乐日历
         axios.get('https://neteasecloudmusicapi.vercel.app/#/?id=neteasecloudmusicapi').then(res => {
-            this.date = res
+            this.date = res.data.data.calendarEvents.slice(0,2);
         })
         const res = await fetchSearchDefault();
         this.defaultSearch = res.data.data
