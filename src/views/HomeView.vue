@@ -4,7 +4,7 @@
         <header class="flex justify-around w-[100%] border-solid border-b border-slate-[ebedf2] pb-[7vw]">
             <Icon icon="ph:list" color="#323" width="30" class=""/>
             <form action="" class="relative">
-                <input type="text" name="" id="" :placeholder="defaultSearch.showKeyword" class="outline-none w-[73vw] rounded-2xl pl-[7vw] box-border" v-model="userSearchkeywords">
+                <input type="text" name="" id="" :placeholder="defaultSearch.showKeyword" class="outline-none w-[73vw] h-[7vw] rounded-2xl pl-[7vw] box-border" v-model="userSearchkeywords">
                 <Icon icon="iconamoon:search-light" color="#ccc" width="20" class="absolute left-[1vw] top-[0.5vw] text-center" @click.native="searchHandler(userSearchkeywords)"/>
                 <Icon icon="tabler:scan" color="#ccc" width="20" class="absolute right-[2vw] top-[0.5vw] text-center" />
                 <ul v-if="SeachSuggestList" class="absolute top-[7vw] bg-[#fff] bg-opacity-[0.8] z-50 w-[73vw] rounded-2xl ">
