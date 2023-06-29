@@ -2,7 +2,7 @@ import Vue from 'vue';
 import './index.css'
 import { Icon } from '@iconify/vue2';
 // import indexView from "./views/IndexView.vue"
-import HomeView from "./views/HomeView.vue"
+import HomeView from "./views/HomeView/HomeView.vue"
 // import Swiper from 'swiper';
 Vue.component('Icon', Icon);
 //页面打开，请求自动发送

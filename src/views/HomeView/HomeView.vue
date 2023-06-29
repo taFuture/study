@@ -16,20 +16,15 @@
         <!-- 轮播图 -->
         <div class="swiper mySwiper mt-[4.537vw]">
             <div class="swiper-wrapper">
-                <div class="swiper-slide " v-for="item in banner" :key="item.id">
-                    <img :src="item.pic" alt="" class="w h-[35.741vw] rounded-2xl m-auto">
-                </div>
+                <TheBanner class="swiper-slide " v-for="item in banner" :key="item.id" :banner="item"></TheBanner>
             </div>
             <div class="swiper-pagination"></div>
         </div>
         <!-- 每日推荐 -->
         <main class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden"  ref="scroll">
-            <ul class="flex justify-between scroll-content w-[193vw] ">
-                <li class="text-center scroll-item" v-for="item in commend" :key="item.id">
-                    <img :src="item.iconUrl" alt="" class="w-[15vw] h-[15vw] red-image">
-                    <span>{{item.name}}</span>
-                </li>
-            </ul>
+            <div class="flex justify-between scroll-content w-[193vw] ">
+                <TheEvery class="text-center scroll-item" v-for="item in commend" :key="item.id" :every="item"></TheEvery>
+            </div>
         </main>
         <!-- 推荐歌单 -->
         <main class="mt-[4.722vw] border-solid border-t border-b border-slate-[ebedf2] pt-[5.463vw] pb-[6.296vw] box-border">
@@ -39,12 +34,9 @@
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
             <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden"  ref="sc">
-                <ul class="flex scroll-content w-[200vw]">
-                    <li class="scroll-item mr-[2.5vw] w-[32.13vw]" v-for="item in songSheet" :key="item.id">
-                        <img :src="item.picUrl" alt="" class="w-[30vw] h-[30vw] rounded-2xl mb-[1.3vw]">
-                        <span class="text-[0.5rem]">{{item.name}}</span>
-                    </li>
-                </ul>
+                <div class="flex scroll-content w-[200vw]">
+                    <TheComment class="scroll-item mr-[2.5vw] w-[32.13vw]" v-for="item in songSheet" :key="item.id" :comment="item"></TheComment>
+                </div>
             </div>
         </main>
         <!-- 新歌新碟 -->
@@ -55,19 +47,9 @@
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
             <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden"  ref="song">
-                <ul class="flex justify-between scroll-content w-[714vw]">
-                    <li class="scroll-item w-[88.819vw]" v-for="item in newSong" :key="item.id">
-                        <div v-for="key in item.resources" :key="key.id" class="flex mb-[2.8vw]">
-                            <div>
-                                <img :src="key.uiElement.image.imageUrl" alt="" class="w-[18vw] h-[18vw] rounded-lg mr-5">
-                            </div>
-                            <div class="flex flex-col justify-around">
-                                <p class="w-[65vw] font-bold text-[4vw]">{{key.uiElement.mainTitle.title}}</p>
-                                <p class="" style="color:#7a8490">{{key.uiElement.subTitle.title}}</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                <div class="flex justify-between scroll-content w-[714vw]">
+                    <TheSong class="scroll-item w-[88.819vw]" v-for="item in newSong" :key="item.id" :song="item"></TheSong>
+                </div>
             </div>
         </main>
         <!-- 排行榜 -->
@@ -78,30 +60,9 @@
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
             <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden"  ref="charts">
-                <ul class="flex scroll-content w-[560vw] p-[3vw]">
-                    <li class="scroll-item w-[91vw] h-[54.4vw] mr-3 bg-#fff bg-opacity-[0.8] rounded-2xl shadow p-[3.5vw] box-border" v-for="item in charts" :key="item.id">
-                        <div>
-                            <span class=" font-bold">{{item.uiElement.mainTitle?.title}}</span>
-                            <Icon icon="ep:arrow-left-bold" color="#333" width="10" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
-                            <span class="float-right  leading-[8vw]">{{item.uiElement.mainTitle?.titleDesc}}</span>
-                        </div>
-                        <div v-for="(key,index) in item.resources" :key="key.id" class="flex justify-between mt-[2.8vw]">
-                            <div class="flex w-[81vw]">
-                                <div>
-                                    <img :src="key.uiElement.image.imageUrl" alt="" class="w-[10vw] h-[10vw] rounded-lg mr-5">
-                                </div>
-                                <div class="mr-[4vw] leading-[11vw] font-bold" :style="{ 'color': getNodeColor(index) }">{{index + 1}}</div>
-                                <div class="flex flex-col justify-around mr-[5vw]">
-                                    <p class="w-[47vw] font-bold text-ellipsis text-[4vw]">{{key.uiElement.mainTitle.title}}</p>
-                                    <p class="" style="color:#7a8490">{{key.resourceExtInfo?.artists[0].name}}</p>
-                                </div>
-                                <div class="flex items-center justify-center">
-                                    <div class=" text-center w-[8vw]" :style="{ 'color': getThemeColor(key.uiElement.labelText.text)}">{{key.uiElement.labelText.text}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                <div class="flex scroll-content w-[560vw] p-[3vw]">
+                    <TheChart  class="scroll-item w-[91vw] h-[54.4vw] mr-3 bg-#fff bg-opacity-[0.8] rounded-2xl shadow p-[3.5vw] box-border" v-for="item in charts" :key="item.id" :charts="item"></TheChart>
+                </div>
             </div>
         </main>
         <!-- 热门话题 -->
@@ -112,28 +73,9 @@
             </p>
             <div class="overflow-hidden scroll-wrapper " ref="hot">
                 <div class="flex scroll-content w-[235vw]">
-                    <div class="ml-[4.5vw] w-[71vw] h-[38vw] hot p-[3.6vw] box-border rounded-2xl" v-for="item in 3" :key="item" >
-                        <div>
-                            <p class="flex items-center w-[47vw] mb-[1.3vw]">
-                                <Icon icon="solar:chat-round-like-linear" width="20" color="white" />
-                                <span class="text-[#fff]  ml-[1.3vw]">最令你感动的那首歌</span>
-                            </p>
-                            <p class="text-[#c9c9c9] ">484万热度</p>
-                        </div>
-                        <div class="flex justify-between w-[100%] mt-[5vw]">
-                            <div>
-                                <p class="text-[#ececec]">Saint_Denis:今日份的感动</p>
-                                <p class="text-[#ececec]">"我希望我们能永远真诚且热烈"</p>
-                            </div>
-                            <div>
-                                <img src="http://p1.music.126.net/JtMBJSd2ZFtarcVTAYjUFQ==/109951165550061432.jpg" alt="" class="w-[14vw] h-[14vw] rounded-xl">
-                            </div>
-                        </div>
-                    </div>
+                    <TheHot  class="ml-[4.5vw] scroll-item w-[71vw] h-[38vw] hot p-[3.6vw] box-border rounded-2xl" v-for="item in 3" :key="item" :hot="item"></TheHot>
                 </div>
-                
             </div>
-            
         </main>
         <!-- 音乐日历 -->
         <main class="mt-[4.722vw] border-solid border-b border-slate-[ebedf2] pb-[6.296vw] box-border">
@@ -170,7 +112,14 @@ import axios from 'axios';
 import _ from 'lodash';
 import BScroll from '@better-scroll/core';
 import {fetchSearchDefault,fetchSearchResult,fetchSeachSuggest} from '@/request';
+import TheHot from './components/TheHot.vue';
+import TheComment from './components/TheComment.vue'
+import TheEvery from './components/TheEvery.vue'
+import TheChart from './components/TheChart.vue'
+import TheBanner from './components/TheBanner.vue'
+import TheSong from './components/TheSong.vue'
 export default {
+    components:{TheHot,TheComment,TheEvery,TheChart,TheBanner,TheSong},
     data() {
         return {
             menu: [],
@@ -180,7 +129,12 @@ export default {
             theme:'新晋',
             defaultSearch:{},
             userSearchkeywords:'',
-            SeachSuggestList:[]
+            SeachSuggestList:[],
+            date:[],  //音乐日历
+            charts:[],  //排行榜
+            newSong:[],  //新歌新碟
+            songSheet:[],  //推荐歌单
+            commend:[], //每日推荐
         }
     },
     // async created() {
