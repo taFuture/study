@@ -34,8 +34,8 @@
         <!-- 推荐歌单 -->
         <main class="mt-[4.722vw] border-solid border-t border-b border-slate-[ebedf2] pt-[5.463vw] pb-[6.296vw] box-border">
             <p class="ml-[4.5vw] mb-[4vw]">
-                <span class="font-bold">推荐歌单</span>
-                <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
+                <span class="font-bold text-[5vw]">推荐歌单</span>
+                <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block mt-[-2vw]"/>
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
             <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden"  ref="sc">
@@ -50,8 +50,8 @@
         <!-- 新歌新碟 -->
         <main class="mt-[4.722vw] border-solid border-b border-slate-[ebedf2] pb-[6.296vw] box-border">
             <p class="ml-[4.5vw] mb-[6vw]">
-                <span class="font-bold ">新歌新碟\数字专辑</span>
-                <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
+                <span class="font-bold text-[5vw]">新歌新碟\数字专辑</span>
+                <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block mt-[-2vw]"/>
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
             <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden"  ref="song">
@@ -62,7 +62,7 @@
                                 <img :src="key.uiElement.image.imageUrl" alt="" class="w-[18vw] h-[18vw] rounded-lg mr-5">
                             </div>
                             <div class="flex flex-col justify-around">
-                                <p class="w-[65vw] font-bold">{{key.uiElement.mainTitle.title}}</p>
+                                <p class="w-[65vw] font-bold text-[4vw]">{{key.uiElement.mainTitle.title}}</p>
                                 <p class="" style="color:#7a8490">{{key.uiElement.subTitle.title}}</p>
                             </div>
                         </div>
@@ -73,13 +73,13 @@
         <!-- 排行榜 -->
         <main class="mt-[4.722vw] border-solid border-b border-slate-[ebedf2] pb-[6.296vw] box-border">
             <p class="ml-[4.5vw] mb-[6vw]">
-                <span class="font-bold ">排行榜</span>
-                <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
+                <span class="font-bold text-[5vw]">排行榜</span>
+                <Icon icon="ep:arrow-left-bold" color="#333" width="20" :horizontalFlip="true" :verticalFlip="true" class="inline-block mt-[-2vw]"/>
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
             <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper overflow-hidden"  ref="charts">
-                <ul class="flex scroll-content w-[560vw]">
-                    <li class="scroll-item w-[91vw] h-[54.4vw] mr-3 bg-#fff bg-opacity-[0.8] rounded-2xl shadow-lg p-[3.5vw] box-border" v-for="item in charts" :key="item.id">
+                <ul class="flex scroll-content w-[560vw] p-[3vw]">
+                    <li class="scroll-item w-[91vw] h-[54.4vw] mr-3 bg-#fff bg-opacity-[0.8] rounded-2xl shadow p-[3.5vw] box-border" v-for="item in charts" :key="item.id">
                         <div>
                             <span class=" font-bold">{{item.uiElement.mainTitle?.title}}</span>
                             <Icon icon="ep:arrow-left-bold" color="#333" width="10" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="mr-[4vw] leading-[11vw] font-bold" :style="{ 'color': getNodeColor(index) }">{{index + 1}}</div>
                                 <div class="flex flex-col justify-around mr-[5vw]">
-                                    <p class="w-[47vw] font-bold text-ellipsis">{{key.uiElement.mainTitle.title}}</p>
+                                    <p class="w-[47vw] font-bold text-ellipsis text-[4vw]">{{key.uiElement.mainTitle.title}}</p>
                                     <p class="" style="color:#7a8490">{{key.resourceExtInfo?.artists[0].name}}</p>
                                 </div>
                                 <div class="flex items-center justify-center">
@@ -107,34 +107,40 @@
         <!-- 热门话题 -->
         <main class="mt-[4.722vw] border-solid border-b border-slate-[ebedf2] pb-[6.296vw] box-border">
             <p class="ml-[4.5vw] mb-[6vw] overflow-hidden">
-                <span class="font-bold ">热门话题</span>
+                <span class="font-bold text-[5vw]">热门话题</span>
                 <Icon icon="ant-design:more-outlined" color="#333" width="30" :horizontalFlip="true" :verticalFlip="true" class="float-right"/>
             </p>
-            <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper w-[91vw] h-[38vw] hot p-[3.6vw] box-border rounded-2xl">
-                <div>
-                    <p class="flex items-center w-[47vw] mb-[1.3vw]">
-                        <Icon icon="solar:chat-round-like-linear" width="20" color="white" />
-                        <span class="text-[#fff]  ml-[1.3vw]">最令你感动的那首歌</span>
-                    </p>
-                    <p class="text-[#c9c9c9] ">484万热度</p>
-                </div>
-                <div class="flex justify-between w-[100%] mt-[5vw]">
-                    <div>
-                        <p class="text-[#ececec]">Saint_Denis:今日份的感动</p>
-                        <p class="text-[#ececec]">"我希望我们能永远真诚且热烈"</p>
+            <div class="overflow-hidden scroll-wrapper " ref="hot">
+                <div class="flex scroll-content w-[235vw]">
+                    <div class="ml-[4.5vw] w-[71vw] h-[38vw] hot p-[3.6vw] box-border rounded-2xl" v-for="item in 3" :key="item" >
+                        <div>
+                            <p class="flex items-center w-[47vw] mb-[1.3vw]">
+                                <Icon icon="solar:chat-round-like-linear" width="20" color="white" />
+                                <span class="text-[#fff]  ml-[1.3vw]">最令你感动的那首歌</span>
+                            </p>
+                            <p class="text-[#c9c9c9] ">484万热度</p>
+                        </div>
+                        <div class="flex justify-between w-[100%] mt-[5vw]">
+                            <div>
+                                <p class="text-[#ececec]">Saint_Denis:今日份的感动</p>
+                                <p class="text-[#ececec]">"我希望我们能永远真诚且热烈"</p>
+                            </div>
+                            <div>
+                                <img src="http://p1.music.126.net/JtMBJSd2ZFtarcVTAYjUFQ==/109951165550061432.jpg" alt="" class="w-[14vw] h-[14vw] rounded-xl">
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <img src="http://p1.music.126.net/JtMBJSd2ZFtarcVTAYjUFQ==/109951165550061432.jpg" alt="" class="w-[14vw] h-[14vw] rounded-xl">
-                    </div>
                 </div>
+                
             </div>
+            
         </main>
         <!-- 音乐日历 -->
         <main class="mt-[4.722vw] border-solid border-b border-slate-[ebedf2] pb-[6.296vw] box-border">
             <div class="ml-[4.5vw] mb-[6vw] overflow-hidden">
-                <div class="flex ">
-                    <span class="font-bold mr-2">音乐日历</span>
-                    <p class="w-[13vw] h-[5vw] bg-[#ebedf2] rounded-2xl text-center">
+                <div class="flex overflow-hidden">
+                    <span class="font-bold mr-2 text-[5vw]">音乐日历</span>
+                    <p class="w-[13vw] h-[5vw] bg-[#ebedf2] rounded-2xl text-center mt-[1vw]">
                         更多
                         <Icon icon="ep:arrow-left-bold" color="#333" width="10" :horizontalFlip="true" :verticalFlip="true" class="inline-block"/>
                     </p>
@@ -143,11 +149,11 @@
             </div>
             <div class="ml-[4.5vw] mt-[4.722vw] scroll-wrapper">
                 <ul class="flex scroll-content w-[575vw]">
-                    <li class="flex flex-col justify-between scroll-item w-[91vw] h-[48vw] mr-3 bg-#fff bg-opacity-[0.8] rounded-2xl shadow-lg p-[2.8vw] box-border">
+                    <li class="flex flex-col justify-between scroll-item w-[91vw] h-[48vw] mr-3 bg-#fff bg-opacity-[0.8] rounded-2xl shadow p-[2.8vw] box-border">
                         <div v-for="item in date" :key="item.id" class="flex justify-between mt-[2.8vw]">
                             <div class="flex flex-col justify-center w-[65vw] h-[15.7vw]">
                                 <p class="text-[#abaeab] ">今天 {{Cover(new Date().getMonth() + 1)}}/{{new Date().getDate()}}</p>
-                                <p class="mt-[1vw] font-bold">{{ item.title }}</p>
+                                <p class="mt-[1vw] font-bold text-[4vw] w-[65vw] text-ellipsis">{{ item.title }}</p>
                             </div>
                             <div>
                                 <img :src="item.imgUrl" alt="" class="w-[16vw] h-[16vw] rounded-lg">
@@ -187,6 +193,7 @@ export default {
         this.init(this.$refs.sc);
         this.init(this.$refs.song);
         this.init(this.$refs.charts);
+        this.init(this.$refs.hot);
     },
     beforeDestroy() {
         this.bs.destroy()
@@ -194,8 +201,8 @@ export default {
     methods: {
         init(name) {
             this.bs = new BScroll(name, {
-            scrollX: true,
-            probeType: 3 // listening scroll event
+                scrollX: true,
+                probeType: 3 // listening scroll event
             })
         },
         getNodeColor(index) {
@@ -264,7 +271,7 @@ export default {
             const res = await fetchSeachSuggest(keywords);
             console.log(res);
             this.SeachSuggestList = res.data.result.songs
-        },300) 
+        },200) 
     }
 }
 </script>
@@ -319,5 +326,11 @@ export default {
 
     main {
         overflow: hidden;
+    }
+
+    .shadow {
+        --tw-shadow: 0 -2px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
     }
 </style>
